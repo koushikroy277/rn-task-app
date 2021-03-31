@@ -1,25 +1,34 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
 import { Card, ListItem, Button, Icon } from "react-native-elements";
-import { Feather } from "@expo/vector-icons";
+import styled from "styled-components";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Entypo, Feather } from "@expo/vector-icons";
 
 import * as rootNavigation from "../rootNavigation";
 import { NativeContext } from "../context/context";
-import styled from "styled-components";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import MenuDrop from "./MenuDrop";
 
 export default function CardNotes(props) {
-  const { notes, setNotes, textColor, textDesColor, setValue, setValue2 } = React.useContext(
-    NativeContext
-  );
+  const {
+    textColor,
+    textDesColor,
+    setValue,
+    setValue2,
+    menu,
+    setMenu,
+  } = React.useContext(NativeContext);
 
-  const deleteNotes = (noteId) => {
-    setNotes(notes.filter((data) => data.id !== noteId));
-  };
+  const [ openMenu, setOpenMenu ] = React.useState([]);
+
+  const handleMenu = (noteId) => {
+    setMenu(!menu);
+    setOpenMenu(noteId);
+  }
 
   return (
     <>
-      {notes.map((u, i) => {
+      {props.notes.map((u, i) => {
         return (
           <CardItemBody key={i}>
             <Card
@@ -31,17 +40,29 @@ export default function CardNotes(props) {
               <Card.Title>
                 <CardTitle>
                   <CardText>Blank Notes</CardText>
-                  <TouchableOpacity onPress={() => deleteNotes(u.id)}>
-                    <Feather
-                      name="trash-2"
-                      size={30}
-                      color="red"
-                      style={{ marginLeft: 150 }}
-                    />
+                  <TouchableOpacity onPress={() => handleMenu(u.id)}>
+                    <Text />
+                    <View style={{ marginLeft: 150, marginTop: -10 }}>
+                      <Entypo
+                        name="dots-three-vertical"
+                        size={30}
+                        color="black"
+                      />
+                    </View>
                   </TouchableOpacity>
                 </CardTitle>
               </Card.Title>
               <Card.Divider />
+              {menu && u.id === openMenu && (
+              <MenuDropdown>
+                <MenuDrop
+                noteList={props.notes}
+                setNoteList={props.setNotes} 
+                noteListId={u.id}
+                noteListTitle={u.noteTitle}
+                noteListDes={u.noteDes} />
+              </MenuDropdown>
+            )}
               <Body>
                 <BodyItem>
                   <BodyTextTitle
@@ -72,16 +93,6 @@ export default function CardNotes(props) {
                       style={{ width: 100, height: 100 }}
                     />
                   )}
-                </BodyItem>
-                <BodyItem>
-                  <Button
-                    title="Go to"
-                    onPress={() => {
-                      rootNavigation.navigate("CardView");
-                      setValue(u.noteTitle);
-                      setValue2(u.noteDes);
-                    }}
-                  />
                 </BodyItem>
               </Body>
             </Card>
@@ -114,7 +125,7 @@ const BodyTextDes = styled.Text`
 const CardTitle = styled.View`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
 `;
 
 const CardText = styled.Text`
@@ -126,4 +137,12 @@ const CardText = styled.Text`
 const CardItemBody = styled.View`
   /* border-bottom-width: 3px;
   border-color: #4ea4de; */
+`;
+
+const MenuDropdown = styled.View`
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  padding: 10px;
+  z-index: 1;
 `;

@@ -15,7 +15,7 @@ import { NativeContext } from "../context/context";
 import { navigate } from "../rootNavigation";
 
 export default function Common({ navigation }) {
-  const { notes, finalDes } = React.useContext(NativeContext);
+  const { notes, setNotes, finalDes } = React.useContext(NativeContext);
 
   return (
     <>
@@ -40,9 +40,6 @@ export default function Common({ navigation }) {
           <TabBody>
             <TabView />
           </TabBody>
-          <View>
-            <Button title="Drag" onPress={() => navigation.navigate("")} />
-          </View>
         </View>
       </ScrollView>
     </>

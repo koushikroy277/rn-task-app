@@ -12,7 +12,7 @@ const TabBody = styled.View`
 `;
 
 export default function TabPage({ children }) {
-  const { notes, finalDes } = React.useContext(NativeContext);
+  const { notes, setNotes, finalDes } = React.useContext(NativeContext);
 
   return (
     <>
@@ -20,7 +20,7 @@ export default function TabPage({ children }) {
         <TabBody>
           {notes.length < 1 || finalDes < 1 ? null : (
             <CardNotesBody>
-              <CardNotes />
+              <CardNotes notes={notes} setNotes={setNotes} />
             </CardNotesBody>
           )}
         </TabBody>

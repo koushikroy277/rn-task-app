@@ -11,6 +11,7 @@ export default function Context(props) {
   const [textDesColor, setTextDesColor] = React.useState([]);
   const [msg, setMsg] = React.useState(false);
   const [bold, setBold] = React.useState(false);
+  const [menu, setMenu] = React.useState(false);
   const [bold2, setBold2] = React.useState(false);
   const [italic, setItalic] = React.useState(false);
   const [italic2, setItalic2] = React.useState(false);
@@ -68,6 +69,7 @@ export default function Context(props) {
       },
     ]);
     setMsg(false);
+    setMenu(false);
     setImage(null);
     setInputDes("");
     setNotesTitle("");
@@ -96,6 +98,7 @@ export default function Context(props) {
       },
     ]);
     setImage(null);
+    setMenu(false);
     setInputDes("");
     setNotesTitle("");
     setTextColor("#000");
@@ -113,6 +116,8 @@ export default function Context(props) {
         setImage,
         notes,
         setNotes,
+        menu,
+        setMenu,
         bold2,
         setBold2,
         value,
