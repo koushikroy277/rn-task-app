@@ -6,20 +6,22 @@ export const NativeContext = React.createContext([]);
 
 export default function Context(props) {
   const [notes, setNotes] = React.useState([]);
+  const [todoList, setTodoList] = React.useState([]);
   const [editNotes, setEditNotes] = React.useState([]);
   const [textColor, setTextColor] = React.useState([]);
   const [textDesColor, setTextDesColor] = React.useState([]);
-  const [msg, setMsg] = React.useState(false);
   const [bold, setBold] = React.useState(false);
   const [menu, setMenu] = React.useState(false);
+  const [image, setImage] = React.useState(null);
   const [bold2, setBold2] = React.useState(false);
   const [italic, setItalic] = React.useState(false);
   const [italic2, setItalic2] = React.useState(false);
-  const [image, setImage] = React.useState(null);
-  const [inputDes, setInputDes] = React.useState("");
-  const [notesTitle, setNotesTitle] = React.useState("");
+  const [todo, setTodo] = React.useState("");
   const [value, setValue] = React.useState("");
   const [value2, setValue2] = React.useState("");
+  const [inputDes, setInputDes] = React.useState("");
+  const [todoMatch, setTodoMatch] = React.useState("");
+  const [notesTitle, setNotesTitle] = React.useState("");
 
   const colorList = [
     "#e69177",
@@ -51,7 +53,7 @@ export default function Context(props) {
   };
 
   const handleAdd = () => {
-    if (notesTitle === "" || inputDes === "") return setMsg(true);
+    if (notesTitle === "" || inputDes === "") return;
 
     setNotes((current) => [
       ...current,
@@ -68,7 +70,6 @@ export default function Context(props) {
         inputBold2: bold2,
       },
     ]);
-    setMsg(false);
     setMenu(false);
     setImage(null);
     setInputDes("");
@@ -106,11 +107,35 @@ export default function Context(props) {
     rootNavigation.navigate("Home");
   };
 
+  const handleTodo = () => {
+    setTodoMatch(todo);
+
+    if (todo === "") return;
+    if (todoMatch === todo) return;
+
+    setTodoList((listTodo) => [
+      ...listTodo,
+      {
+        todoTitle: todo,
+        todoId: Math.random(),
+        todoComplete: false,
+      }
+    ])
+
+    setTodo("");
+
+  }
+
   return (
     <NativeContext.Provider
       value={{
-        msg,
         bold,
+        todo,
+        setTodo,
+        todoList, 
+        todoMatch,
+        setTodoList,
+        handleTodo,
         setBold,
         image,
         setImage,

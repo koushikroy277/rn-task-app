@@ -17,17 +17,28 @@ import KeyTaskBar from "../notes/KeyTaskBar";
 
 export default function CardView({ navigation }) {
   const {
-    image, bold,
-    msg, editNotes,
-    bold2, italic2,
-    italic, value2,
-    setValue, setValue2,
-    value, textDesColor,
-    setBold, handleEdit,
-    setBold2, setItalic2,
-    textColor, notesInput,
-    setTextDesColor, setItalic,
-    setTextColor, notesDesInput,
+    image,
+    bold,
+    msg,
+    editNotes,
+    bold2,
+    italic2,
+    italic,
+    value2,
+    setValue,
+    setValue2,
+    value,
+    textDesColor,
+    setBold,
+    handleEdit,
+    setBold2,
+    setItalic2,
+    textColor,
+    notesInput,
+    setTextDesColor,
+    setItalic,
+    setTextColor,
+    notesDesInput,
   } = React.useContext(NativeContext);
 
   const [colorDrop, setColorDrop] = React.useState(false);
@@ -101,32 +112,34 @@ export default function CardView({ navigation }) {
           </View>
         </NoteChild>
 
-        {/* Task Bar */}
-        <View>
-          <KeyTaskBar handleFunc={handleEdit} />
-        </View>
-
         <View
           style={{
             alignItems: "center",
           }}
         >
           {image && (
-            <Image source={{ uri: image }} style={{ width: '100%', height: 300 }} />
+            <Image
+              source={{ uri: image }}
+              style={{ width: "100%", height: 300 }}
+            />
           )}
         </View>
-
-        {/* No Message */}
-        <View>{msg && <Text>No Notes</Text>}</View>
       </NoteParent>
+
+        {/* Task Bar */}
+        <View>
+          <KeyTaskBar 
+          handleFunc={handleEdit} 
+          initHeight={0}
+          showHeight={0} />
+        </View>
     </>
   );
 }
 
 const NoteParent = styled.View`
+  background-color: #fff;
   height: 100%;
-  margin: 5px;
-  padding: 15px;
 `;
 
 const NoteChildHead = styled.View`
@@ -152,14 +165,9 @@ const NoteInputTitle = styled.Text`
 const styles = StyleSheet.create({
   noteInput: {
     width: 280,
-    height: 60,
     fontSize: 18,
-    fontWeight: "700",
-    color: "red",
-    borderRadius: 10,
     padding: 10,
     marginTop: 10,
     marginBottom: 50,
   },
 });
-

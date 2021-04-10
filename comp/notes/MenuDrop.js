@@ -27,9 +27,22 @@ export default function MenuDrop(props) {
         <TouchableOpacity onPress={() => deleteNotes(props.noteListId)}>
           <ChildMenu>
             <MenuText>Delete</MenuText>
-            <Feather name="trash-2" size={30} color="red" />
+            <Feather name="trash-2" size={25} color="red" />
           </ChildMenu>
         </TouchableOpacity>
+
+        <TouchableOpacity
+        onPress={() => {
+          rootNavigation.navigate(props.navLink);
+          setValue(props.noteListTitle);
+          setValue2(props.noteListDes);
+        }}>
+          <ChildMenu>
+            <MenuText>View</MenuText>
+            <Entypo name="eye" size={25} color="black" />
+          </ChildMenu>
+        </TouchableOpacity>
+        
         <TouchableOpacity
           onPress={() => {
             rootNavigation.navigate("CardView");
@@ -39,38 +52,31 @@ export default function MenuDrop(props) {
         >
           <ChildMenu>
             <MenuText>Edit</MenuText>
-            <Feather name="edit-3" size={30} color="black" />
+            <Feather name="edit-3" size={25} color="black" />
           </ChildMenu>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <ChildMenu>
-            <MenuText>View</MenuText>
-            <Feather name="edit-3" size={30} color="black" />
-          </ChildMenu>
-        </TouchableOpacity>
+        
       </ParentMenu>
     </>
   );
 }
 
 const ParentMenu = styled.View`
-  display: flex;
-  background-color: #edf7f7;
-  width: 200px;
-  height: 100%;
+  background-color: #fff;
+  elevation: 10;
+  width: 160px;
 `;
 
 const ChildMenu = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  border-bottom-width: 1px;
-  border-color: rgba(0, 0, 0, 0.2);
-  margin: 10px;
-  padding: 10px;
+  align-items: center;
+  padding: 15px 0;
 `;
 
 const MenuText = styled.Text`
-  font-size: 20px;
+  margin-top: 5px;
+  font-size: 15px;
   font-weight: 700;
 `;

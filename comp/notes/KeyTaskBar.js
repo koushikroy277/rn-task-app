@@ -10,14 +10,14 @@ import {
   Button,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Entypo, FontAwesome } from "@expo/vector-icons";
 import styled from "styled-components";
 
 import { NativeContext } from "../context/context";
 
 export default function KeyTaskBar(props) {
   const { image, setImage } = React.useContext(NativeContext);
-  const [height, setHeight] = React.useState(-350);
+  const [height, setHeight] = React.useState(props.initHeight);
 
   const pickImage = async () => {
     if (Platform.OS !== "web") {
@@ -54,11 +54,11 @@ export default function KeyTaskBar(props) {
   }, []);
 
   const _keyboardDidShow = () => {
-    setHeight(-80);
+    setHeight(props.showHeight);
   };
 
   const _keyboardDidHide = () => {
-    setHeight(-350);
+    setHeight(props.initHeight);
   };
 
   return (
@@ -72,38 +72,32 @@ export default function KeyTaskBar(props) {
         }}
       >
         <KeyboardElem>
+          <View>
+            <TouchableOpacity
+              onPress={pickImage}
+            >
+              <Entypo name="images" size={30} color="black" />
+            </TouchableOpacity>
+          </View>
           <TouchableOpacity
             onPress={props.handleFunc}
-            style={{
-              alignItems: "center",
-            }}
           >
             <AntDesign name="plussquareo" size={30} color="black" />
           </TouchableOpacity>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Button
-              title="Pick an image"
-              onPress={pickImage}
-            />
-            <Button
-              title="Remove image"
-              onPress={() => setImage(null)}
-            />
-          </View>
         </KeyboardElem>
       </KeyboardParent>
     </>
   );
 }
 
-const KeyboardParent = styled.View``;
+const KeyboardParent = styled.View`
+  border-color: rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border-top-width: 1px;
+  padding: 10px 15px;
+  z-index: 1;
+`;
+
 const KeyboardElem = styled.View`
   display: flex;
   flex-direction: row;

@@ -25,18 +25,9 @@ export default function Common({ navigation }) {
             height: "100%",
           }}
         >
-          <Head>
-            <HeadIcon>
-              <Feather
-                name="bar-chart-2"
-                size={40}
-                color="#fff"
-                onPress={() => navigation.openDrawer()}
-              />
-            </HeadIcon>
-            <HeadName>NoteItAll</HeadName>
-          </Head>
-
+          <View>
+            <CommonHead navigation={navigation} />
+          </View>
           <TabBody>
             <TabView />
           </TabBody>
@@ -45,6 +36,22 @@ export default function Common({ navigation }) {
     </>
   );
 }
+
+export const CommonHead = ({ navigation }) => {
+  return (
+    <Head>
+      <HeadIcon>
+        <Feather
+          name="bar-chart-2"
+          size={40}
+          color="#fff"
+          onPress={() => navigation.openDrawer()}
+        />
+      </HeadIcon>
+      <HeadName>NoteItAll</HeadName>
+    </Head>
+  );
+};
 
 const HeadIcon = styled.View`
   opacity: 0.7;

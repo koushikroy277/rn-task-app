@@ -10,123 +10,148 @@ import {
   TouchableOpacity,
 } from "react-native";
 import styled from "styled-components";
+import { FontAwesome } from "@expo/vector-icons";
 
 import { NativeContext } from "../context/context";
 import ColorDrop from "./ColorDrop";
 import KeyTaskBar from "./KeyTaskBar";
 
-export default function notes({ navigation }) {
+export default function Notes({ navigation }) {
   const {
-    msg, notes,
-    image, bold,
-    bold2, italic2,
-    italic, inputDes,
-    setBold, handleAdd,
-    setBold2, setItalic2,
-    textColor, notesInput,
-    notesTitle, textDesColor,
-    setTextDesColor, setItalic,
-    setTextColor, notesDesInput,
+    setImage,
+    notes,
+    image,
+    bold,
+    bold2,
+    italic2,
+    italic,
+    inputDes,
+    setBold,
+    handleAdd,
+    setBold2,
+    setItalic2,
+    textColor,
+    notesInput,
+    notesTitle,
+    textDesColor,
+    setTextDesColor,
+    setItalic,
+    setTextColor,
+    notesDesInput,
   } = React.useContext(NativeContext);
 
   const [colorDrop, setColorDrop] = React.useState(false);
   const [colorDropSec, setColorDropSec] = React.useState(false);
 
   return (
-    <>
-      <NoteParent>
-        {/* Input Fields */}
-        <NoteChild>
-          <NoteChildHead>
-            <NoteTitle>Title</NoteTitle>
-            <ColorDrop
-              textColor={textColor}
-              setTextColor={setTextColor}
-              drop={colorDrop}
-              setDrop={setColorDrop}
-              italic={italic}
-              setItalic={setItalic}
-              bold={bold}
-              setBold={setBold}
-            />
-          </NoteChildHead>
-          <TextInput
-            style={[
-              styles.noteInput,
-              {
-                color: textColor.toString(),
-                fontWeight: bold ? "700" : "100",
-                fontStyle: italic ? "italic" : "normal",
-                fontSize: 28,
-              },
-            ]}
-            placeholder="Write Title..."
-            value={notesTitle.toString()}
-            onChangeText={notesInput}
-            autoCorrect={true}
-            autoFocus={true}
-          />
-        </NoteChild>
-        <NoteChild>
-          <NoteChildHead>
-            <NoteTitle>Description</NoteTitle>
-            <ColorDrop
-              textColor={textDesColor}
-              setTextColor={setTextDesColor}
-              drop={colorDropSec}
-              setDrop={setColorDropSec}
-              italic={italic2}
-              setItalic={setItalic2}
-              bold={bold2}
-              setBold={setBold2}
-            />
-          </NoteChildHead>
-          <View>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+      <ScrollView>
+        <NoteParent>
+          {/* Input Fields */}
+          <NoteChild>
+            <NoteChildHead>
+              <NoteTitle>Title</NoteTitle>
+              <ColorDrop
+                textColor={textColor}
+                setTextColor={setTextColor}
+                drop={colorDrop}
+                setDrop={setColorDrop}
+                italic={italic}
+                setItalic={setItalic}
+                bold={bold}
+                setBold={setBold}
+              />
+            </NoteChildHead>
             <TextInput
               style={[
                 styles.noteInput,
                 {
-                  height: 150,
-                  color: textDesColor.toString(),
-                  fontStyle: italic2 ? "italic" : "normal",
-                  fontWeight: bold2 ? "700" : "100",
+                  color: textColor.toString(),
+                  fontWeight: bold ? "700" : "100",
+                  fontStyle: italic ? "italic" : "normal",
+                  fontSize: 28,
                 },
               ]}
-              placeholder="Write Description..."
-              value={inputDes.toString()}
-              onChangeText={notesDesInput}
-              multiline={true}
+              placeholder="Write Title..."
+              value={notesTitle.toString()}
+              onChangeText={notesInput}
               autoCorrect={true}
+              autoFocus={true}
             />
-          </View>
-        </NoteChild>
+          </NoteChild>
+          <NoteChild>
+            <NoteChildHead>
+              <NoteTitle>Description</NoteTitle>
+              <ColorDrop
+                textColor={textDesColor}
+                setTextColor={setTextDesColor}
+                drop={colorDropSec}
+                setDrop={setColorDropSec}
+                italic={italic2}
+                setItalic={setItalic2}
+                bold={bold2}
+                setBold={setBold2}
+              />
+            </NoteChildHead>
+            <View>
+              <TextInput
+                style={[
+                  styles.noteInput,
+                  {
+                    color: textDesColor.toString(),
+                    fontStyle: italic2 ? "italic" : "normal",
+                    fontWeight: bold2 ? "700" : "100",
+                  },
+                ]}
+                placeholder="Write Description..."
+                value={inputDes.toString()}
+                onChangeText={notesDesInput}
+                multiline={true}
+                autoCorrect={true}
+              />
+            </View>
+          </NoteChild>
 
-        {/* Task Bar */}
-        <View>
-          <KeyTaskBar handleFunc={handleAdd} />
-        </View>
+          <NoteChild>
+            <View
+              style={{
+                alignItems: "center",
+              }}
+            >
+              {image && (
+                <>
+                  <TouchableOpacity
+                    onPress={() => setImage(null)}
+                    style={{
+                      position: "relative",
+                      left: 120,
+                      top: 0,
+                      margin: 10,
+                    }}
+                  >
+                    <FontAwesome name="remove" size={30} color="black" />
+                  </TouchableOpacity>
+                  <Image
+                    source={{ uri: image }}
+                    style={{ width: 250, height: 250 }}
+                  />
+                </>
+              )}
+            </View>
+          </NoteChild>
+        </NoteParent>
+      </ScrollView>
 
-        <View
-          style={{
-            alignItems: "center",
-          }}
-        >
-          {image && (
-            <Image source={{ uri: image }} style={{ width: '100%', height: 300 }} />
-          )}
-        </View>
-
-        {/* No Message */}
-        <View>{msg && <Text>No Notes</Text>}</View>
-      </NoteParent>
-    </>
+      {/* Task Bar */}
+      <View>
+        <KeyTaskBar handleFunc={handleAdd} initHeight={10} showHeight={0} />
+      </View>
+    </View>
   );
 }
 
 const NoteParent = styled.View`
-  height: 100%;
   margin: 5px;
-  padding: 15px;
 `;
 
 const NoteChildHead = styled.View`
@@ -152,14 +177,8 @@ const NoteInputTitle = styled.Text`
 const styles = StyleSheet.create({
   noteInput: {
     width: 280,
-    height: 60,
-    borderWidth: 1,
-    borderColor: "rgba(0, 0, 0, .4)",
     fontSize: 18,
-    fontWeight: "700",
-    color: "red",
-    borderRadius: 10,
-    padding: 10,
+    paddingVertical: 20,
     marginTop: 10,
   },
 });

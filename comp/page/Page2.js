@@ -1,10 +1,24 @@
-import React from 'react';
-import { View, Text } from "react-native";
+import React from "react";
+import { View, Text, ScrollView } from "react-native";
+import styled from "styled-components";
 
-export default function Page2() {
-    return (
-        <View style={{ flex: 1, justifyContent:'center', alignItems:'center' }}>
-            <Text>Page2</Text>
-        </View>
-    )
+import Todo from "../todo/Todo";
+import { CommonHead } from "../page/Common";
+
+export default function Page2({ navigation }) {
+  return (
+    <ScrollView>
+      <View>
+        <CommonHead navigation={navigation} />
+      </View>
+      <Parent>
+        <Todo />
+      </Parent>
+    </ScrollView>
+  );
 }
+
+const Parent = styled.View`
+  padding: 10px;
+  height: 100%;
+`;

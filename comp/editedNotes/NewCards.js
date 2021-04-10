@@ -18,6 +18,7 @@ export default function NewCards(props) {
     <>
       <View>
         <CardNotes 
+        navLink="Edited"
         notes={editNotes}
         setNotes={setEditNotes} />
       </View>

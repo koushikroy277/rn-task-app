@@ -19,12 +19,12 @@ export default function CardNotes(props) {
     setMenu,
   } = React.useContext(NativeContext);
 
-  const [ openMenu, setOpenMenu ] = React.useState([]);
+  const [openMenu, setOpenMenu] = React.useState([]);
 
   const handleMenu = (noteId) => {
     setMenu(!menu);
     setOpenMenu(noteId);
-  }
+  };
 
   return (
     <>
@@ -45,7 +45,7 @@ export default function CardNotes(props) {
                     <View style={{ marginLeft: 150, marginTop: -10 }}>
                       <Entypo
                         name="dots-three-vertical"
-                        size={30}
+                        size={25}
                         color="black"
                       />
                     </View>
@@ -53,16 +53,19 @@ export default function CardNotes(props) {
                 </CardTitle>
               </Card.Title>
               <Card.Divider />
+
               {menu && u.id === openMenu && (
-              <MenuDropdown>
-                <MenuDrop
-                noteList={props.notes}
-                setNoteList={props.setNotes} 
-                noteListId={u.id}
-                noteListTitle={u.noteTitle}
-                noteListDes={u.noteDes} />
-              </MenuDropdown>
-            )}
+                <MenuDropdown>
+                  <MenuDrop
+                    navLink={props.navLink}
+                    noteList={props.notes}
+                    setNoteList={props.setNotes}
+                    noteListId={u.id}
+                    noteListTitle={u.noteTitle}
+                    noteListDes={u.noteDes}
+                  />
+                </MenuDropdown>
+              )}
               <Body>
                 <BodyItem>
                   <BodyTextTitle
@@ -74,25 +77,6 @@ export default function CardNotes(props) {
                   >
                     {u.noteTitle}
                   </BodyTextTitle>
-                </BodyItem>
-                <BodyItem>
-                  <BodyTextDes
-                    style={{
-                      color: u.inputDesColor,
-                      fontStyle: u.inputItalic2 ? "italic" : "normal",
-                      fontWeight: u.inputBold2 ? "700" : "100",
-                    }}
-                  >
-                    {u.noteDes}
-                  </BodyTextDes>
-                </BodyItem>
-                <BodyItem>
-                  {u.inputImage && (
-                    <Image
-                      source={{ uri: u.inputImage }}
-                      style={{ width: 100, height: 100 }}
-                    />
-                  )}
                 </BodyItem>
               </Body>
             </Card>
@@ -110,12 +94,11 @@ const Body = styled.View`
 `;
 
 const BodyItem = styled.View`
-  margin: 10px;
   padding: 10px;
 `;
 
 const BodyTextTitle = styled.Text`
-  font-size: 35px;
+  font-size: 25px;
 `;
 
 const BodyTextDes = styled.Text`
@@ -131,18 +114,14 @@ const CardTitle = styled.View`
 const CardText = styled.Text`
   font-size: 18px;
   margin: 10px 0;
-  position: relative;
 `;
 
 const CardItemBody = styled.View`
-  /* border-bottom-width: 3px;
-  border-color: #4ea4de; */
 `;
 
 const MenuDropdown = styled.View`
   position: absolute;
-  top: 40px;
-  right: 0px;
-  padding: 10px;
+  top: 0;
+  right: 60px;
   z-index: 1;
 `;
