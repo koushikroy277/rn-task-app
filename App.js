@@ -79,7 +79,7 @@ function HomeScreen() {
       initialRouteName="Home"
       drawerContent={(props) => <CustomDrawer {...props} />}
     >
-      <Drawer.Screen name="Notes" component={Page1} />
+      <Drawer.Screen name="Home" component={Page1} />
       <Drawer.Screen name="To-do" component={Page2} />
     </Drawer.Navigator>
   );
